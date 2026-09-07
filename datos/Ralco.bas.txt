@@ -1,0 +1,132 @@
+Attribute VB_Name = "Ralco"
+Private Const Cotamin As Double = 598
+Private Const Cotaminop As Double = 692
+Private Const Cotamax As Double = 725
+Private Const Volmax As Double = 1173.61
+Private Const Volmin As Double = 0
+Public Function Volumen_Ralco(cota As Double) As Variant
+Attribute Volumen_Ralco.VB_Description = "Macro grabada el 26/03/02 por jhp"
+Attribute Volumen_Ralco.VB_ProcData.VB_Invoke_Func = " \n14"
+      d0 = 2560723.619: d1 = 8418.733692
+      d2 = -195.0203848: d3 = 0.8735252846
+      d4 = -0.001875571214: d5 = 0.000002182018751
+      d6 = -1.329885007E-09: d7 = 3.344078254E-13
+
+If cota >= Cotamin And cota <= Cotamax Then
+      Volumen_Ralco = d0 + d1 * cota + d2 * cota ^ 2 + d3 * cota ^ 3 + d4 * cota ^ 4 + d5 * cota ^ 5 + d6 * cota ^ 6 + d7 * cota ^ 7
+      If Volumen_Ralco < 0 Then Volumen_Ralco = 0
+Else
+      Volumen_Ralco = Mensaje_Error
+End If
+
+
+End Function
+ Public Function Cota_Ralco(volumen As Double) As Variant
+
+      d0 = 649.3302217: d1 = 0.1676291546
+      d2 = -0.0002381163325: d3 = 2.745693468E-07
+      d4 = -2.11279019E-10: d5 = 1.013856203E-13
+      d6 = -2.739480172E-17: d7 = 3.177812069E-21
+
+      d01 = 614.4210269: d11 = 1.263213202
+      d21 = -0.02030322906: d31 = 0.0002388156292
+      d41 = -0.000001801337494: d51 = 8.248826794E-09
+      d61 = -2.079915343E-11: d71 = 2.209057765E-14
+
+      If volumen >= Volmin And volumen <= 222.88 Then
+        Cota_Ralco = d01 + d11 * volumen + d21 * volumen ^ 2 + d31 * volumen ^ 3 + d41 * volumen ^ 4 + d51 * volumen ^ 5 + d61 * volumen ^ 6 + d71 * volumen ^ 7
+       
+      ElseIf volumen > 222.88 And volumen <= Volmax Then
+        Cota_Ralco = d0 + d1 * volumen + d2 * volumen ^ 2 + d3 * volumen ^ 3 + d4 * volumen ^ 4 + d5 * volumen ^ 5 + d6 * volumen ^ 6 + d7 * volumen ^ 7
+      Else
+        Cota_Ralco = Mensaje_Error
+      End If
+ End Function
+
+Public Function Rendimiento_Ralco(cota As Double) As Variant
+
+ 
+'     Generacion max 690 MW
+ 
+ 
+      d1 = 0.0090849
+      d0 = -4.85
+      
+If cota >= Cotamin And cota <= Cotamax Then
+      Rendimiento_Ralco = d1 * cota + d0
+Else
+      Rendimiento_Ralco = Mensaje_Error
+End If
+End Function
+Public Function Rendimiento_Ralco2(cota As Double, Optional potencia As Double = 690) As Variant
+
+ 
+'     Generacion max 690 MW
+
+If cota >= Cotamin And cota <= Cotamax Then
+      Rendimiento_Ralco2 = potencia / Caudal_Ralco(cota, potencia)
+Else
+      Rendimiento_Ralco2 = Mensaje_Error
+End If
+End Function
+
+Public Function Caudal_Ralco(cota As Double, Optional potencia As Double = 690) As Variant
+'     Caudal Ralco
+      a_0 = 0.60915591
+      b_0 = -0.39676086
+      c_0 = 287.834523
+      a_1 = 0.611237
+      b_1 = -0.88114769
+      c_1 = 633.454821
+      a_2 = 0.69919678
+      b_2 = -1.82509381
+      c_2 = 1283.66739
+      a_3 = 0.82912307
+      b_3 = -2.98225016
+      c_3 = 2038.97198
+      
+    If potencia <= 180 Then
+          Caudal_Ralco = a_0 * potencia + b_0 * cota + c_0
+    ElseIf potencia > 180 And potencia <= 410 Then
+          Caudal_Ralco = a_1 * potencia + b_1 * cota + c_1
+    ElseIf potencia > 410 And potencia <= 600 Then
+          Caudal_Ralco = a_2 * potencia + b_2 * cota + c_2
+    Else
+          Caudal_Ralco = a_3 * potencia + b_3 * cota + c_3
+    End If
+End Function
+
+
+
+'    Funcion qmaxralc(cota)
+'    input: cota embalse Ralco
+'    output: Caudal Maximo segun cota Ralco
+      
+      
+Public Function qmax_ralco(cota As Double) As Variant
+
+'     Generacion max 570 MW
+
+      d2 = -0.001328940667
+      d1 = 2.893509358
+      d0 = -1031.266288
+   If cota >= Cotamin And cota <= Cotamax Then
+      qmax_ralco = d2 * cota ^ 2 + d1 * cota + d0
+   Else
+      qmax_ralco = Mensaje_Error
+   End If
+
+End Function
+
+Public Function Energia_Ralco(cota As Double) As Variant
+Rendmed = 1.5489
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Energia_Ralco = (1000 / 3600) * (Volumen_Ralco(cota) - Volumen_Ralco(Cotaminop)) * Rendmed
+    Else
+    Energia_Ralco = Mensaje_Error
+End If
+End Function
+
+
+
+     

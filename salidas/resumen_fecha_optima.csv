@@ -1,0 +1,4 @@
+duracion_dias,inicio_dia_opt,fecha_inicio_opt,fecha_fin_opt,vert_esperado_GWh,vert_ralco_GWh,vert_pangue_GWh,gen_total_media_GWh,vert_esperado_barrido_GWh
+120,25,25-Jan,24-May,430.89,307.98,122.91,4733.2,487.63
+150,349,15-Dec,13-May,604.21,465.93,138.28,4432.7,646.18
+180,331,27-Nov,25-May,773.95,618.8,155.15,4142.3,839.51

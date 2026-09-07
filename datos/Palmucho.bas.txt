@@ -1,0 +1,24 @@
+Attribute VB_Name = "Palmucho"
+Private Const Cotamin As Double = 598
+Private Const Cotaminop As Double = 692
+Private Const Cotamax As Double = 725
+Public Function Rendimiento_Palmucho(cota As Double) As Variant
+a = 0.0092
+b = -5.4648
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Rendimiento_Palmucho = a * cota + b
+Else
+    Rendimiento_Palmucho = Mensaje_Error
+End If
+End Function
+
+Public Function PMax_Palmucho(cota As Double) As Variant
+a = 0.2481
+b = -148.1
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    PMax_Palmucho = a * cota + b
+Else
+    PMax_Palmucho = Mensaje_Error
+End If
+End Function
+

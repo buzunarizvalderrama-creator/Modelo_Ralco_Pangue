@@ -1,0 +1,70 @@
+Attribute VB_Name = "Pangue"
+Private Const Volmax As Double = 72
+Private Const Volmin As Double = 6.66
+Private Const Cotamax As Double = 511
+Private Const Cotamin As Double = 495
+Public Function Cota_Pangue(volumen As Double) As Variant
+a = 0.0366
+b = -32.43
+c = 7091.6
+If (Volmin <= volumen) And (volumen <= Volmax) Then
+    Cota_Pangue = (-b + Sqr(Abs(b ^ 2 - 4 * a * (c - volumen)))) / (2 * a)
+    Else
+    Cota_Pangue = Mensaje_Error
+End If
+
+End Function
+Public Function Volumen_Pangue(cota As Double) As Variant
+a = 0.0366
+b = -32.43
+c = 7091.6
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Volumen_Pangue = a * cota ^ 2 + b * cota + c
+    Else
+    Volumen_Pangue = Mensaje_Error
+End If
+End Function
+Public Function Rendimiento_Pangue(cota As Double) As Variant
+a = -0.0000008
+b = 0.0094
+c = -3.6981
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Rendimiento_Pangue = a * cota ^ 2 + b * cota + c
+    Else
+    Rendimiento_Pangue = Mensaje_Error
+End If
+End Function
+Public Function Rendimiento_Pangue2(cota As Double, Optional potencia As Double = 450) As Variant
+
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Rendimiento_Pangue2 = potencia / Caudal_Pangue(cota, potencia)
+    Else
+    Rendimiento_Pangue2 = Mensaje_Error
+End If
+End Function
+Public Function Energia_Pangue(cota As Double) As Variant
+Rendmed = 0.898
+If (Cotamin <= cota) And (cota <= Cotamax) Then
+    Energia_Pangue = (1000 / 3600) * (Volumen_Pangue(cota) - Volumen_Pangue(Cotamin)) * Rendmed
+    Else
+    Energia_Pangue = Mensaje_Error
+End If
+End Function
+
+
+Public Function Caudal_Pangue(cota As Double, Optional potencia As Double = 450) As Variant
+a_0 = 0.81952037
+b_0 = -0.23239608
+c_0 = 154.576434
+ 
+a_1 = 1.06496292
+b_1 = -1.64876731
+c_1 = 853.38298
+ 
+If potencia <= 90 Then
+    Caudal_Pangue = a_0 * potencia + b_0 * cota + c_0
+    Else
+    Caudal_Pangue = a_1 * potencia + b_1 * cota + c_1
+End If
+End Function
+
