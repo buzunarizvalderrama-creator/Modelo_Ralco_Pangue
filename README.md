@@ -70,3 +70,4 @@ Los CSV de detalle se guardan siempre en **.csv** (compatibles con Power BI).
 - Rendimiento evaluado a potencia de referencia (Pₘₐₓ) por iteración.
 - Año no bisiesto (365 días); mantenimiento puede cruzar el fin de año.
 - Sin restricción de volumen final (el embalse no debe "volver" a 725).
+.test
